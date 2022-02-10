@@ -2,26 +2,24 @@
 
 A prometheus exporter for Laravel.
 
-[![Author](http://img.shields.io/badge/author-@superbalist-blue.svg?style=flat-square)](https://twitter.com/superbalist)
-[![Build Status](https://img.shields.io/travis/Superbalist/laravel-prometheus-exporter/master.svg?style=flat-square)](https://travis-ci.org/Superbalist/laravel-prometheus-exporter)
-[![StyleCI](https://styleci.io/repos/98516814/shield?branch=master)](https://styleci.io/repos/98516814)
+[![Build Status](https://img.shields.io/travis/healthengine/laravel-prometheus-exporter/master.svg?style=flat-square)](https://travis-ci.org/healthengine/laravel-prometheus-exporter)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Packagist Version](https://img.shields.io/packagist/v/superbalist/laravel-prometheus-exporter.svg?style=flat-square)](https://packagist.org/packages/superbalist/laravel-prometheus-exporter)
-[![Total Downloads](https://img.shields.io/packagist/dt/superbalist/laravel-prometheus-exporter.svg?style=flat-square)](https://packagist.org/packages/superbalist/laravel-prometheus-exporter)
+[![Packagist Version](https://img.shields.io/packagist/v/healthengine/laravel-prometheus-exporter.svg?style=flat-square)](https://packagist.org/packages/healthengine/laravel-prometheus-exporter)
+[![Total Downloads](https://img.shields.io/packagist/dt/healthengine/laravel-prometheus-exporter.svg?style=flat-square)](https://packagist.org/packages/healthengine/laravel-prometheus-exporter)
 
-This package is a wrapper bridging [jimdo/prometheus_client_php](https://github.com/Jimdo/prometheus_client_php) into Laravel.
+This package is a wrapper bridging [PromPHP/prometheus_client_php](https://github.com/PromPHP/prometheus_client_php) into Laravel.
 
 ## Installation
 
 ```bash
-composer require superbalist/laravel-prometheus-exporter
+composer require healthengine/laravel-prometheus-exporter
 ```
 
 Register the service provider in app.php
 ```php
 'providers' => [
     // ...
-    Superbalist\LaravelPrometheusExporter\PrometheusServiceProvider::class,
+    Healthengine\LaravelPrometheusExporter\PrometheusServiceProvider::class,
 ]
 ```
 
@@ -29,7 +27,7 @@ Register the facade in app.php
 ```php
 'aliases' => [
     // ...
-    'Prometheus' => Superbalist\LaravelPrometheusExporter\PrometheusFacade::class,
+    'Prometheus' => Healthengine\LaravelPrometheusExporter\PrometheusFacade::class,
 ]
 ```
 
@@ -52,7 +50,7 @@ PROMETHEUS_REDIS_PREFIX=PROMETHEUS_
 
 To customize the configuration file, publish the package configuration using Artisan.
 ```bash
-php artisan vendor:publish --provider="Superbalist\LaravelPrometheusExporter\PrometheusServiceProvider"
+php artisan vendor:publish --provider="Healthengine\LaravelPrometheusExporter\PrometheusServiceProvider"
 ```
 
 You can then edit the generated config at `app/config/prometheus.php`.
@@ -90,7 +88,7 @@ You can auto-load your collectors by adding them to the `collectors` array in th
 
 ```php
 // retrieve the exporter
-$exporter = app(\Superbalist\LaravelPrometheusExporter::class);
+$exporter = app(\Healthengine\LaravelPrometheusExporter::class);
 // or
 $exporter = app('prometheus');
 // or
