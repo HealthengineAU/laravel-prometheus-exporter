@@ -45,5 +45,14 @@
   },
   "suggest": {
     "ext-apcu": "To use the APCu driver."
+  },
+  "scripts": {
+    "phpunit": "@php vendor/bin/phpunit",
+    "test": [
+      "@composer update --prefer-lowest",
+      "@composer phpunit",
+      "@composer update",
+      "@composer phpunit"
+    ]
   }
 }
