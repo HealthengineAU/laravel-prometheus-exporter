@@ -21,7 +21,7 @@ before_install:
   - echo "apc.enable_cli = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - composer require --no-interaction --no-update laravel/framework:${LARAVEL_VERSION} orchestra/testbench:${TESTBENCH_VERSION}
-  - composer update --${DEPENDENCY_VERSION} --prefer-dist --no-interaction --no-suggest
+  - composer update --${DEPENDENCY_VERSION} --prefer-dist --no-interaction
 
 script:
   - composer test
