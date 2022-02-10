@@ -11,8 +11,7 @@ branches:
     - master
 
 before_install:
-  - echo "extension = apcu.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - echo "apc.enabled = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - pecl install apcu redis
 
-script: composer test
+script:
+  - composer test
