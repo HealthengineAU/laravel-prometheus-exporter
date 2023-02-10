@@ -1,12 +1,12 @@
 version: 2.1
 
 executors:
-  php74:
-    docker:
-      - image: cimg/php:7.4
   php80:
     docker:
       - image: cimg/php:8.0
+  php81:
+    docker:
+      - image: cimg/php:8.1
 
 jobs:
   test:
@@ -45,4 +45,4 @@ workflows:
       - test:
           matrix:
             parameters:
-              php-executor: [php74, php80]
+              php-executor: [php80, php81]
