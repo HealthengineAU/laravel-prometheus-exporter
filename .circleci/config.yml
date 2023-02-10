@@ -11,9 +11,9 @@ executors:
 jobs:
   test:
     parameters:
-
-    docker:
-      - image: cimg/php:<< parameters.php-version >>
+      php-version:
+        type: string
+    executor: php-<< parameters.php-version >>
     steps:
       - checkout
       - restore_cache:
