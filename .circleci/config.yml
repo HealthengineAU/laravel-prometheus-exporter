@@ -1,38 +1,38 @@
 version: 2.1
 
 executors:
-  php-8.0:
+  php80:
     docker:
-      image: cimg/php:8.0
-  php-8.1:
+      - image: cimg/php:8.0
+  php81:
     docker:
-      image: cimg/php:8.1
+      - image: cimg/php:8.1
 
 jobs:
   test:
     parameters:
-      php-version:
+      php-executor:
         type: string
-    executor: php-<< parameters.php-version >>
+    executor: << parameters.php-executor >>
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v1-<< parameters.php-version >>-dependencies-lowest-{{ checksum "composer.json" }}
-            - v1-<< parameters.php-version >>-dependencies-lowest-
+            - v1-<< parameters.php-executor >>-dependencies-lowest-{{ checksum "composer.json" }}
+            - v1-<< parameters.php-executor >>-dependencies-lowest-
       - run: composer update --prefer-lowest
       - save_cache:
-          key: v1-<< parameters.php-version >>-dependencies-lowest-{{ checksum "composer.json" }}
+          key: v1-<< parameters.php-executor >>-dependencies-lowest-{{ checksum "composer.json" }}
           paths:
             - ./vendor
       - run: composer test
       - restore_cache:
           keys:
-            - v1-<< parameters.php-version >>-dependencies-highest-{{ checksum "composer.json" }}
-            - v1-<< parameters.php-version >>-dependencies-highest-
+            - v1-<< parameters.php-executor >>-dependencies-highest-{{ checksum "composer.json" }}
+            - v1-<< parameters.php-executor >>-dependencies-highest-
       - run: composer update
       - save_cache:
-          key: v1-<< parameters.php-version >>-dependencies-highest-{{ checksum "composer.json" }}
+          key: v1-<< parameters.php-executor >>-dependencies-highest-{{ checksum "composer.json" }}
           paths:
             - ./vendor
       - run: composer test
@@ -43,4 +43,4 @@ workflows:
       - test:
           matrix:
             parameters:
-              php-version: [8.0, 8.1]
+              php-executor: [php80, php81]
