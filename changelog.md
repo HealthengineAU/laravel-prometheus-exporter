@@ -2,9 +2,11 @@
 
 ## Unreleased
 
+* Add support for Laravel 9.
 * Add support for PHP 8.1.
 * Drop support for PHP 7.4.
 * Drop support for Laravel 7.
+* Remove `orchestra/testbench` from development dependencies.
 * Swap build provider from Travis CI to Circle CI.
 
 ## 1.0.5 - 2020-03-16
