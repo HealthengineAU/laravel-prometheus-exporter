@@ -16,7 +16,7 @@ jobs:
     executor: << parameters.php-executor >>
     steps:
       - checkout
-      - run: sudo pecl install apcu redis
+      - run: printf "\n" | sudo pecl install apcu redis
       - run: echo 'apc.enable_cli=1' | sudo tee -a /etc/php.d/circleci.ini
       - restore_cache:
           keys:
