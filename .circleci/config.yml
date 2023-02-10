@@ -16,7 +16,7 @@ jobs:
     executor: << parameters.php-executor >>
     steps:
       - checkout
-      - run: sudo docker-php-ext-install redis
+      - run: sudo pecl install redis
       - restore_cache:
           keys:
             - v1-<< parameters.php-executor >>-dependencies-lowest-{{ checksum "composer.json" }}
