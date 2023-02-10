@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v3.0.0 - 2023-02-10
+
 * Add support for Laravel 9.
 * Add support for PHP 8.1.
 * Drop support for PHP 7.4.
