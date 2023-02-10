@@ -17,6 +17,8 @@ jobs:
     steps:
       - checkout
       - run: sudo pecl install apcu redis
+      - run: php -m
+      - run: php -i
       - restore_cache:
           keys:
             - v1-<< parameters.php-executor >>-dependencies-lowest-{{ checksum "composer.json" }}
