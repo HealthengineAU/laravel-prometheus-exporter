@@ -18,7 +18,8 @@ jobs:
       - checkout
       - run: sudo curl -fLSso /usr/local/bin/install-php-extensions https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions
       - run: sudo chmod +x /usr/local/bin/install-php-extensions
-      - run: sudo install-php-extensions apcu redis
+      - run: php -i
+      - run: PHP_INI_DIR=/etc/php sudo install-php-extensions apcu redis
       - run: echo 'apc.enable_cli=1' | sudo tee -a /etc/php.d/circleci.ini
       - restore_cache:
           keys:
