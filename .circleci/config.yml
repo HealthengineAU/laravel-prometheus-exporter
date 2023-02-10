@@ -16,7 +16,9 @@ jobs:
     executor: << parameters.php-executor >>
     steps:
       - checkout
-      - run: sudo pecl install apcu redis
+      - run: sudo curl -fLSso /usr/local/bin/install-php-extensions https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions
+      - run: sudo chmod +x /usr/local/bin/install-php-extensions
+      - run: sudo install-php-extensions apcu redis
       - run: echo 'apc.enable_cli=1' | sudo tee -a /etc/php.d/circleci.ini
       - restore_cache:
           keys:
