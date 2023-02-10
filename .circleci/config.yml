@@ -1,0 +1,48 @@
+version: 2.1
+
+executors:
+  php74:
+    docker:
+      - image: cimg/php:7.4
+  php80:
+    docker:
+      - image: cimg/php:8.0
+
+jobs:
+  test:
+    parameters:
+      php-executor:
+        type: string
+    executor: << parameters.php-executor >>
+    steps:
+      - checkout
+      - run: sudo pecl install apcu redis
+      - run: echo 'apc.enable_cli=1' | sudo tee -a /etc/php.d/circleci.ini
+      - restore_cache:
+          keys:
+            - v1-<< parameters.php-executor >>-dependencies-lowest-{{ checksum "composer.json" }}
+            - v1-<< parameters.php-executor >>-dependencies-lowest-
+      - run: composer update --prefer-lowest
+      - save_cache:
+          key: v1-<< parameters.php-executor >>-dependencies-lowest-{{ checksum "composer.json" }}
+          paths:
+            - ./vendor
+      - run: composer test
+      - restore_cache:
+          keys:
+            - v1-<< parameters.php-executor >>-dependencies-highest-{{ checksum "composer.json" }}
+            - v1-<< parameters.php-executor >>-dependencies-highest-
+      - run: composer update
+      - save_cache:
+          key: v1-<< parameters.php-executor >>-dependencies-highest-{{ checksum "composer.json" }}
+          paths:
+            - ./vendor
+      - run: composer test
+
+workflows:
+  all-tests:
+    jobs:
+      - test:
+          matrix:
+            parameters:
+              php-executor: [php74, php80]
