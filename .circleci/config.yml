@@ -17,7 +17,7 @@ jobs:
     steps:
       - checkout
       - run: sudo pecl install apcu redis
-      - run: sudo echo 'apc.enable_cli=1' >> /etc/php.d/circleci.ini
+      - run: echo 'apc.enable_cli=1' | sudo tee -a /etc/php.d/circleci.ini
       - restore_cache:
           keys:
             - v1-<< parameters.php-executor >>-dependencies-lowest-{{ checksum "composer.json" }}
