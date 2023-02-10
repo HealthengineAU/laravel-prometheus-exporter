@@ -15,8 +15,8 @@
   ],
   "require": {
     "php": "~8.0.0 || ~8.1.0",
-    "illuminate/routing": "^8.74",
-    "illuminate/support": "^8.74",
+    "illuminate/routing": "^8.74 || ^9.0",
+    "illuminate/support": "^8.74 || ^9.0",
     "promphp/prometheus_client_php": "^2.0"
   },
   "autoload": {
@@ -37,7 +37,6 @@
   },
   "require-dev": {
     "mockery/mockery": "^1.5",
-    "orchestra/testbench": "^5.8 || ^6.23",
     "phpunit/phpunit": "^9.6"
   },
   "config": {
