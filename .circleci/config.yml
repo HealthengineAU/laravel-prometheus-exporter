@@ -1,48 +1,51 @@
 version: 2.1
 
 executors:
-  php80:
-    docker:
-      - image: cimg/php:8.0
   php81:
     docker:
       - image: cimg/php:8.1
+  php82:
+    docker:
+      - image: cimg/php:8.2
 
 jobs:
+  lint:
+    executor: php82
+    steps:
+      - checkout
+      - run: composer update
+      - run: composer lint
   test:
     parameters:
-      php-executor:
+      php_executor:
         type: string
-    executor: << parameters.php-executor >>
+    executor: << parameters.php_executor >>
     steps:
       - checkout
       - run: printf "\n" | sudo pecl install apcu redis
       - run: echo 'apc.enable_cli=1' | sudo tee -a /etc/php.d/circleci.ini
-      - restore_cache:
-          keys:
-            - v1-<< parameters.php-executor >>-dependencies-lowest-{{ checksum "composer.json" }}
-            - v1-<< parameters.php-executor >>-dependencies-lowest-
       - run: composer update --prefer-lowest
-      - save_cache:
-          key: v1-<< parameters.php-executor >>-dependencies-lowest-{{ checksum "composer.json" }}
-          paths:
-            - ./vendor
       - run: composer test
-      - restore_cache:
-          keys:
-            - v1-<< parameters.php-executor >>-dependencies-highest-{{ checksum "composer.json" }}
-            - v1-<< parameters.php-executor >>-dependencies-highest-
       - run: composer update
-      - save_cache:
-          key: v1-<< parameters.php-executor >>-dependencies-highest-{{ checksum "composer.json" }}
-          paths:
-            - ./vendor
       - run: composer test
+  coverage:
+    executor: php82
+    steps:
+      - run: printf "\n" | sudo pecl install apcu redis
+      - run: echo 'apc.enable_cli=1' | sudo tee -a /etc/php.d/circleci.ini
+      - run: sudo -E pecl install pcov && sudo -E docker-php-ext-enable pcov
+      - checkout
+      - run: composer update
+      - run: composer coverage
 
 workflows:
-  all-tests:
+  lint_test_coverage:
     jobs:
+      - lint
       - test:
           matrix:
             parameters:
-              php-executor: [php80, php81]
+              php_executor: [php81, php82]
+      - coverage:
+          requires:
+            - test

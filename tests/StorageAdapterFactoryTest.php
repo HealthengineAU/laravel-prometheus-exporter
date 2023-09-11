@@ -38,6 +38,10 @@ class StorageAdapterFactoryTest extends TestCase
 
     public function testMakeRedisAdapter()
     {
+        if (!extension_loaded('redis')) {
+            $this->markTestSkipped('Redis extension is not loaded');
+        }
+
         $factory = new StorageAdapterFactory();
         $adapter = $factory->make('redis');
         $this->assertInstanceOf(Redis::class, $adapter);
