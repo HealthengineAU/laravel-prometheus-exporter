@@ -1,52 +1,56 @@
 {
-  "name": "healthengine/laravel-prometheus-exporter",
-  "description": "A prometheus exporter for Laravel",
-  "license": "MIT",
-  "type": "library",
-  "authors": [
-    {
-      "name": "Superbalist.com a division of Takealot Online (Pty) Ltd",
-      "email": "info@superbalist.com"
+    "name": "healthengine/laravel-prometheus-exporter",
+    "description": "A prometheus exporter for Laravel",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Superbalist.com a division of Takealot Online (Pty) Ltd",
+            "email": "info@superbalist.com"
+        },
+        {
+            "name": "Thomas Spencer",
+            "email": "tomspencer244@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "~8.1.0 || ~8.2.0",
+        "laravel/framework": "^10.0",
+        "promphp/prometheus_client_php": "^2.0"
     },
-    {
-      "name": "Thomas Spencer",
-      "email": "tomspencer244@gmail.com"
+    "autoload": {
+        "psr-4": {
+            "Healthengine\\LaravelPrometheusExporter\\": "src/",
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Healthengine\\LaravelPrometheusExporter\\PrometheusServiceProvider"
+            ],
+            "aliases": {
+                "Prometheus": "Healthengine\\LaravelPrometheusExporter\\PrometheusFacade"
+            }
+        }
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.26",
+        "mockery/mockery": "^1.6",
+        "orchestra/testbench": "^8.0",
+        "phpunit/phpunit": "^10.3"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "suggest": {
+        "ext-apcu": "To use the APCu driver.",
+        "ext-redis": "To use the Redis driver."
+    },
+    "scripts": {
+        "coverage": "@php vendor/bin/phpunit --colors=always --coverage-text",
+        "fix": "@php vendor/bin/php-cs-fixer fix",
+        "lint": "@php vendor/bin/php-cs-fixer fix --diff --dry-run",
+        "test": "@php vendor/bin/phpunit --colors=always"
     }
-  ],
-  "require": {
-    "php": "~8.0.0 || ~8.1.0",
-    "illuminate/routing": "^8.74 || ^9.0",
-    "illuminate/support": "^8.74 || ^9.0",
-    "promphp/prometheus_client_php": "^2.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "Healthengine\\LaravelPrometheusExporter\\": "src/",
-      "Tests\\": "tests/"
-    }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Healthengine\\LaravelPrometheusExporter\\PrometheusServiceProvider"
-      ],
-      "aliases": {
-        "Prometheus": "Healthengine\\LaravelPrometheusExporter\\PrometheusFacade"
-      }
-    }
-  },
-  "require-dev": {
-    "mockery/mockery": "^1.5",
-    "phpunit/phpunit": "^9.6"
-  },
-  "config": {
-    "sort-packages": true
-  },
-  "suggest": {
-    "ext-apcu": "To use the APCu driver.",
-    "ext-redis": "To use the Redis driver."
-  },
-  "scripts": {
-    "test": "@php vendor/bin/phpunit"
-  }
 }
