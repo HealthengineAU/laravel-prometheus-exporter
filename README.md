@@ -1,3 +1,8 @@
+> [!WARNING]
+> This package is abandoned, you should avoid using it.
+>
+> Use [spatie/laravel-prometheus](https://github.com/spatie/laravel-prometheus) instead.
+
 # laravel-prometheus-exporter
 
 A prometheus exporter for Laravel.

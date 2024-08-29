@@ -1,4 +1,5 @@
 {
+    "abandoned": "spatie/laravel-prometheus",
     "name": "healthengine/laravel-prometheus-exporter",
     "description": "A prometheus exporter for Laravel",
     "license": "MIT",
